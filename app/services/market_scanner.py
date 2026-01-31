@@ -55,7 +55,7 @@ def _generate_simulated_signals(job_title, company):
     """
     Generates a realistic job description based on LLM knowledge.
     """
-    api_key = os.environ.get("GROQ_API_KEY")
+    api_key = os.environ.get("GROQ_API_KEY") or os.environ.get("GROQ_API_Key")
     model_name = os.environ.get("GROQ_MODEL", "llama-3.3-70b-versatile")
     
     if not api_key:

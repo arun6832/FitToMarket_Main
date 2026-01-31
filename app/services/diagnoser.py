@@ -5,7 +5,7 @@ def diagnose(resume_text, market_signals):
     """
     Compare resume vs market signals using Groq API.
     """
-    api_key = os.environ.get("GROQ_API_KEY")
+    api_key = os.environ.get("GROQ_API_KEY") or os.environ.get("GROQ_API_Key")
     if not api_key:
         return "Error: GROQ_API_KEY not found in environment variables."
 
