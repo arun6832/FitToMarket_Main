@@ -1,0 +1,222 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="glass-card">
+    <h2 style="text-align: center;">Market Fit Analysis: {{ job_title }}</h2>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 2rem; margin-top: 2rem; align-items: flex-start;">
+        <!-- Left Column: Chart & Drift (Smaller) -->
+        <div style="flex: 1; min-width: 320px;">
+            <div class="glass-card" style="padding: 1.5rem; margin-bottom: 2rem;">
+                <h3 style="margin-top:0; text-align: center; color: #aaa; font-size: 1rem;">Global Competitiveness</h3>
+                <div class="chart-container" style="position: relative; height: 300px;">
+                    <canvas id="fitChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Market Drift Section -->
+            <div class="glass-card" style="padding: 1.5rem; background: rgba(50, 20, 30, 0.4);">
+                <h3 style="margin-top:0; display: flex; justify-content: space-between; align-items: center;">
+                    <span><i class="fa-solid fa-hourglass-half"></i> Market Drift</span>
+                    <span
+                        style="font-size: 0.8rem; padding: 4px 8px; border-radius: 4px; background: {% if drift.verdict == 'Modern' %}#00cc88{% elif drift.verdict == 'Obsolete' %}#ff3366{% else %}#ffcc00{% endif %}; color: #000;">
+                        {{ drift.verdict or 'Analyzing...' }}
+                    </span>
+                </h3>
+                <p style="font-size: 0.9rem; color: #ccc;">{{ drift.explanation }}</p>
+
+                {% if drift.obsolete_terms %}
+                <div style="margin-top: 1rem;">
+                    <small style="color: #ff6666; font-weight: bold;"><i class="fa-solid fa-arrow-trend-down"></i>
+                        Fading Signals (2020 Era):</small><br>
+                    <span style="color: #bbb; font-size: 0.9rem;">{{ drift.obsolete_terms | join(', ') }}</span>
+                </div>
+                {% endif %}
+
+                {% if drift.emerging_terms %}
+                <div style="margin-top: 0.8rem;">
+                    <small style="color: #00ff88; font-weight: bold;"><i class="fa-solid fa-arrow-trend-up"></i> Missing
+                        2026 Signals:</small><br>
+                    <span style="color: #bbb; font-size: 0.9rem;">{{ drift.emerging_terms | join(', ') }}</span>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Blind Spots -->
+            {% if blind_spots %}
+            <div class="glass-card" style="padding: 1.5rem; margin-top: 2rem; border-left: 3px solid #ffcc00;">
+                <h3 style="margin-top:0;"><i class="fa-regular fa-lightbulb"></i> Hidden Blind Spots</h3>
+                <ul style="padding-left: 1.2rem; color: #ddd; font-size: 0.95rem;">
+                    {% for spot in blind_spots %}
+                    <li style="margin-bottom: 0.5rem;">{{ spot }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Right Column: Diagnosis & Personas (Larger) -->
+        <div style="flex: 2.5; min-width: 400px;">
+            <!-- Recruiter Persona Panel -->
+            {% if personas %}
+            <div style="display: flex; gap: 10px; margin-bottom: 2rem; overflow-x: auto; padding-bottom: 5px;">
+                {% for p in personas %}
+                <div class="glass-card"
+                    style="flex: 1; min-width: 200px; padding: 1.2rem; text-align: center; border: 1px solid rgba(255,255,255,0.05);">
+                    <div style="font-size: 2rem; margin-bottom: 0.5rem; color: var(--primary-color);">
+                        {% if 'Startup' in p.name %}<i class="fa-solid fa-jet-fighter"></i>{% elif 'Enterprise' in
+                        p.name %}<i class="fa-solid fa-building"></i>{% else %}<i class="fa-solid fa-code"></i>{% endif
+                        %}
+                    </div>
+                    <h4 style="margin: 0; color: #fff;">{{ p.name }}</h4>
+                    <div style="font-size: 0.8rem; color: #888; margin-bottom: 0.8rem;">{{ p.focus }}</div>
+
+                    <div style="position: relative; width: 60px; height: 60px; margin: 0 auto;">
+                        <svg viewBox="0 0 36 36" class="circular-chart">
+                            <path class="circle-bg"
+                                d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                            <path class="circle" stroke-dasharray="{{ p.fit_score }}, 100"
+                                d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                                style="stroke: {% if p.fit_score > 70 %}#00ff88{% elif p.fit_score < 40 %}#ff3366{% else %}#ffcc00{% endif %};" />
+                        </svg>
+                        <div
+                            style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-weight: bold;">
+                            {{ p.fit_score }}%</div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <div class="diagnosis-content">
+                {{ diagnosis | safe }}
+            </div>
+
+            <!-- Career Strategy Section -->
+            {% if career_pivot.alternative_roles or target_companies.industries %}
+            <div class="glass-card" style="margin-top: 2rem; padding: 2rem;">
+                <h2 style="text-align: center; margin-bottom: 2rem; color: #fff;">
+                    <i class="fa-solid fa-compass" style="color: var(--secondary-color);"></i> Strategic Career Path
+                </h2>
+
+                <div style="display: flex; flex-wrap: wrap; gap: 2rem;">
+                    <!-- Alternative Roles -->
+                    <div style="flex: 1; min-width: 300px;">
+                        <h3
+                            style="color: var(--primary-color); border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem;">
+                            <i class="fa-solid fa-shuffle"></i>
+                            {% if scores.technical_match > 70 %}High-Value Pivots{% else %}Better Fit Roles{% endif %}
+                        </h3>
+                        <p style="font-size: 0.9rem; color: #ccc; font-style: italic;">"{{ career_pivot.reason }}"</p>
+                        <ul style="list-style: none; padding: 0; margin-top: 1rem;">
+                            {% for role in career_pivot.alternative_roles %}
+                            <li
+                                style="background: rgba(255,255,255,0.05); padding: 10px; margin-bottom: 8px; border-radius: 6px; border-left: 3px solid var(--primary-color);">
+                                <strong>{{ role }}</strong>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    <!-- Target Companies -->
+                    <div style="flex: 1; min-width: 300px;">
+                        <h3
+                            style="color: #00ff88; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem;">
+                            <i class="fa-solid fa-bullseye"></i> Target Landscape
+                        </h3>
+                        <p style="font-size: 0.9rem; color: #ccc;">{{ target_companies.culture_fit }}</p>
+
+                        <div style="margin-top: 1rem;">
+                            <div style="margin-bottom: 1rem;">
+                                <small style="color: #aaa; text-transform: uppercase; font-weight: bold;">Top
+                                    Industries</small><br>
+                                {% for ind in target_companies.industries %}
+                                <span
+                                    style="display: inline-block; background: rgba(0, 255, 136, 0.1); color: #00ff88; padding: 4px 10px; border-radius: 12px; font-size: 0.85rem; margin-right: 5px; margin-top: 5px;">{{
+                                    ind }}</span>
+                                {% endfor %}
+                            </div>
+
+                            <div>
+                                <small style="color: #aaa; text-transform: uppercase; font-weight: bold;">Representative
+                                    Companies</small><br>
+                                <span style="color: #fff; line-height: 1.6;">{{ target_companies.top_companies | join(',
+                                    ') }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div style="margin-top: 3rem; text-align: center;">
+        <a href="{{ url_for('main.index') }}"><button style="padding: 12px 24px;">Analyze Another Resume</button></a>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('fitChart').getContext('2d');
+    const userScores = {{ scores | tojson }};
+
+    // Default fallback if score parsing failed
+    const dataValues = [
+        userScores.technical_match || 10,
+        userScores.experience_depth || 10,
+        userScores.market_relevance || 10,
+        userScores.soft_skills || 10
+    ];
+
+    new Chart(ctx, {
+        type: 'radar',
+        data: {
+            labels: ['Technical Match', 'Experience Depth', 'Market Relevance', 'Soft Skills'],
+            datasets: [{
+                label: 'You',
+                data: dataValues,
+                fill: true,
+                backgroundColor: 'rgba(255, 51, 102, 0.2)',
+                borderColor: '#ff3366',
+                pointBackgroundColor: '#ff3366',
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: '#ff3366'
+            }, {
+                label: 'Top 10% Global Average',
+                data: [90, 85, 95, 88],
+                fill: true,
+                backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                borderColor: 'rgba(255, 255, 255, 0.2)',
+                pointBackgroundColor: 'rgba(255, 255, 255, 0.2)',
+                pointBorderColor: '#fff',
+                borderDash: [5, 5]
+            }]
+        },
+        options: {
+            elements: {
+                line: { borderWidth: 3 }
+            },
+            scales: {
+                r: {
+                    angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
+                    grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                    pointLabels: {
+                        color: '#fff',
+                        font: { size: 12, family: "'Plus Jakarta Sans', sans-serif" }
+                    },
+                    suggestedMin: 0,
+                    suggestedMax: 100,
+                    ticks: { backdropColor: 'transparent', color: 'rgba(255, 255, 255, 0.5)' }
+                }
+            },
+            plugins: {
+                legend: {
+                    labels: { color: '#fff', font: { family: "'Plus Jakarta Sans', sans-serif" } }
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}

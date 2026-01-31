@@ -1,0 +1,9 @@
+{
+  "scores": {
+       "technical_match": 60,
+       "experience_depth": 80,
+       "market_relevance": 40,
+       "soft_skills": 20
+   },
+   "diagnosis_html": "<div class=\"diagnosis-report\"><h2>\u26A0 Status: Likely Rejection</h2><h3>\u274C Why Ignored</h3><p>Lack of experience with Docker and Kubernetes, which are required for the position.</p><h3>\u26A0 Red Flags</h3><p>No mention of experience with containerization or orchestration tools.</p><h3>\u2708 Mandatory Fixes</h3><p>Acquire experience with Docker and Kubernetes to be considered for the position.</p></div>"
+}

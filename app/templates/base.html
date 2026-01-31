@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}FitToMarket{% endblock %}</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- Background Blobs -->
+    <div class="bg-blob blob-1"></div>
+    <div class="bg-blob blob-2"></div>
+    <div class="bg-blob blob-3"></div>
+
+    <header>
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <!-- Logo Icon placeholder if needed -->
+            <!-- Logo Icon -->
+            <a href="{{ url_for('main.index') }}" style="text-decoration: none;">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="FitToMarket" class="brand-logo">
+            </a>
+        </div>
+        <nav class="nav-links">
+            <a href="{{ url_for('main.index') }}">Home</a>
+            <a href="{{ url_for('main.how_it_works') }}">How it Works</a>
+            <a href="{{ url_for('main.pricing') }}">Pricing</a>
+            <a href="mailto:support@fittomarket.ai"
+                style="padding: 8px 16px; background: rgba(255,255,255,0.1); border-radius: 20px;">Contact Us</a>
+        </nav>
+    </header>
+    <main>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul class="flashes">
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer
+        style="text-align: center; padding: 2rem; color: #666; font-size: 0.9rem; border-top: 1px solid var(--glass-border);">
+        <p>&copy; 2026 FitToMarket AI. All rights reserved.</p>
+        <p style="margin-top: 0.5rem;">
+            <a href="#" style="color: #888; text-decoration: none; margin: 0 10px;">Privacy</a> |
+            <a href="#" style="color: #888; text-decoration: none; margin: 0 10px;">Terms</a>
+        </p>
+    </footer>
+
+    <script>
+        window.addEventListener('scroll', function () {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+
+</html>

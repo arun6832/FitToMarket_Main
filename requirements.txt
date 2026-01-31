@@ -1,0 +1,10 @@
+flask
+python-dotenv
+pypdf
+python-docx
+duckduckgo-search
+beautifulsoup4
+groq
+markdown
+requests
+ddgs

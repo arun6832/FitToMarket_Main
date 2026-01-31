@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="hero-container">
+    <div class="hero-text">
+        <h1>Why Isn't Your Resume Working?</h1>
+        <p>
+            Stop guessing. We analyze your resume against <strong>live market signals</strong> to tell you exactly why
+            you're being ignored.
+            <br><br>
+            <i class="fa-solid fa-bolt" style="color: var(--primary-color);"></i> <strong>Brutally Honest
+                Feedback</strong><br>
+            <i class="fa-solid fa-chart-line" style="color: var(--secondary-color);"></i> <strong>Real-time Market
+                Comparison</strong><br>
+            <i class="fa-solid fa-check-double" style="color: #00ff88;"></i> <strong>Concrete Fixes</strong>
+        </p>
+        <div style="margin-top: 2rem;">
+            <span style="color: #666; font-size: 0.9rem;">Trusted by candidates targeting:</span><br>
+            <div style="display: flex; gap: 15px; margin-top: 10px; opacity: 0.9;">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" height="25"
+                    style="filter: none;">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" height="25"
+                    style="filter: none;">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" height="25"
+                    style="filter: invert(1);">
+            </div>
+        </div>
+    </div>
+
+    <div class="hero-form">
+        <div class="glass-card">
+            <h2 style="margin-bottom: 1.5rem; font-size: 1.8rem;">Analyze Your Fit</h2>
+            <form action="{{ url_for('main.analyze') }}" method="post" enctype="multipart/form-data">
+                <label for="resume">Upload Resume (PDF/DOCX)</label>
+                <input type="file" name="resume" id="resume" required>
+
+                <label for="job_title">Target Job Title</label>
+                <div class="input-group">
+                    <input type="text" name="job_title" id="job_title" list="roles_list"
+                        placeholder="e.g. Product Manager" required>
+                    <datalist id="roles_list">
+                        <!-- (Keep existing datalist options) -->
+                        <option value="Software Engineer">
+                        <option value="Senior Software Engineer">
+                        <option value="Full Stack Developer">
+                        <option value="Backend Engineer">
+                        <option value="Frontend Developer">
+                        <option value="Data Scientist">
+                        <option value="Data Engineer">
+                        <option value="Machine Learning Engineer">
+                        <option value="DevOps Engineer">
+                        <option value="Site Reliability Engineer (SRE)">
+                        <option value="Cloud Architect">
+                        <option value="Product Manager">
+                        <option value="Project Manager">
+                        <option value="UI/UX Designer">
+                        <option value="Product Designer">
+                        <option value="QA Automation Engineer">
+                        <option value="Cybersecurity Analyst">
+                        <option value="Information Security Manager">
+                        <option value="System Administrator">
+                        <option value="Network Engineer">
+                        <option value="Database Administrator">
+                        <option value="Mobile Developer (iOS)">
+                        <option value="Mobile Developer (Android)">
+                        <option value="Game Developer">
+                        <option value="Embedded Systems Engineer">
+                        <option value="Solution Architect">
+                        <option value="Technical Program Manager">
+                        <option value="Scrum Master">
+                        <option value="Business Analyst">
+                        <option value="IT Support Specialist">
+                            <!-- Business & Admin Roles -->
+                        <option value="HR Manager">
+                        <option value="Technical Recruiter">
+                        <option value="Talent Acquisition Specialist">
+                        <option value="Administrative Assistant">
+                        <option value="Executive Assistant">
+                        <option value="Office Manager">
+                        <option value="Operations Manager">
+                        <option value="Financial Analyst">
+                        <option value="Accountant">
+                        <option value="Investment Banker">
+                        <option value="Marketing Manager">
+                        <option value="Sales Representative">
+                        <option value="Customer Success Manager">
+                        <option value="Legal Counsel">
+                    </datalist>
+                </div>
+
+                <label for="company">Target Company (Optional)</label>
+                <div class="input-group">
+                    <input type="text" name="company" id="company" list="companies_list" placeholder="e.g. Netflix">
+                    <datalist id="companies_list">
+                        <!-- (Keep existing datalist options) -->
+                        <option value="Google">
+                        <option value="Amazon">
+                        <option value="Microsoft">
+                        <option value="Meta">
+                        <option value="Apple">
+                        <option value="Netflix">
+                        <option value="Tesla">
+                        <option value="Uber">
+                        <option value="Airbnb">
+                        <option value="Stripe">
+                        <option value="Spotify">
+                        <option value="Coinbase">
+                        <option value="Goldman Sachs">
+                        <option value="JPMorgan Chase">
+                    </datalist>
+                </div>
+
+                <label for="job_description">Paste Job Description (Optional but Recommended)</label>
+                <textarea name="job_description" id="job_description" rows="3"
+                    placeholder="Paste JD for higher accuracy..."></textarea>
+
+                <button type="submit" style="width: 100%; margin-top: 1rem; padding: 15px; font-size: 1.1rem;">Get
+                    Critical Feedback</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="loader-overlay" id="loader">
+    <div style="text-align: center;">
+        <div class="spinner"></div>
+        <div class="loading-text">Analyzing Live Market Signals...<br><span style="font-size: 0.9rem; color: #888;">This
+                may take a minute</span></div>
+    </div>
+</div>
+
+<script>
+    document.querySelector('form').addEventListener('submit', function () {
+        document.getElementById('loader').style.display = 'flex';
+    });
+</script>
+{% endblock %}

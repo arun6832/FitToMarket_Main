@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block title %}How It Works - FitToMarket{% endblock %}
+
+{% block content %}
+<div style="max-width: 1000px; margin: 0 auto; padding: 4rem 1rem;">
+
+    <h1 style="text-align: center; font-size: 3rem; margin-bottom: 1rem;">The Secret Sauce 🧪</h1>
+    <p style="text-align: center; color: #aaa; font-size: 1.2rem; margin-bottom: 4rem;">
+        No magic, just aggressive market analysis.
+    </p>
+
+    <!-- Section 1: Techniques -->
+    <div
+        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-bottom: 5rem;">
+
+        <div class="glass-card" style="padding: 2rem;">
+            <div style="font-size: 2rem; margin-bottom: 1rem; color: var(--primary-color);"><i
+                    class="fa-solid fa-file-pdf"></i></div>
+            <h3>1. Deep Decoding</h3>
+            <p style="color: #ccc;">We don't just Ctrl+F for keywords. We reconstruct your resume's structure to
+                understand <em>how</em> a recruiter (or AI) parses your skills vs. your experience.</p>
+        </div>
+
+        <div class="glass-card" style="padding: 2rem;">
+            <div style="font-size: 2rem; margin-bottom: 1rem; color: var(--secondary-color);"><i
+                    class="fa-solid fa-radar"></i></div>
+            <h3>2. Market Spy</h3>
+            <p style="color: #ccc;">We scan live job postings for your target role. We ignore generic descriptions and
+                lock onto the specific hard skills companies are <em>actually</em> demanding right now.</p>
+        </div>
+
+        <div class="glass-card" style="padding: 2rem;">
+            <div style="font-size: 2rem; margin-bottom: 1rem; color: #00ff88;"><i
+                    class="fa-solid fa-scale-balanced"></i></div>
+            <h3>3. Reality Check</h3>
+            <p style="color: #ccc;">We calculate the "drift" between you and the market. If you're using 2020 buzzwords
+                in 2026, we tell you exactly which terms are obsolete.</p>
+        </div>
+    </div>
+
+    <!-- Section 2: 2026 Analysis -->
+    <div class="glass-card"
+        style="padding: 3rem; margin-bottom: 4rem; border: 1px solid rgba(255, 51, 102, 0.3); background: rgba(20, 10, 15, 0.6);">
+        <h2 style="text-align: center; margin-bottom: 3rem;">The 2026 Market Reality <i
+                class="fa-solid fa-chart-line"></i></h2>
+
+        <div style="display: flex; flex-wrap: wrap; gap: 3rem; justify-content: center;">
+            <div style="flex: 1; min-width: 250px; text-align: center;">
+                <h3 style="font-size: 3rem; margin: 0; color: #ff3366;">-50%</h3>
+                <p style="font-weight: bold; margin-top: 0.5rem;">Entry-Level Roles</p>
+                <p style="font-size: 0.9rem; color: #aaa;">Drop in openings since 2023. The "junior" role is an
+                    endangered species.</p>
+            </div>
+
+            <div style="flex: 1; min-width: 250px; text-align: center;">
+                <h3 style="font-size: 3rem; margin: 0; color: #ffcc00;">5.7%</h3>
+                <p style="font-weight: bold; margin-top: 0.5rem;">IT Unemployment</p>
+                <p style="font-size: 0.9rem; color: #aaa;">Spiked in early 2025. You are competing against thousands of
+                    laid-off seniors.</p>
+            </div>
+
+            <div style="flex: 1; min-width: 250px; text-align: center;">
+                <h3 style="font-size: 3rem; margin: 0; color: #a3a3a3;"><i class="fa-solid fa-ghost"></i></h3>
+                <p style="font-weight: bold; margin-top: 0.5rem;">Invisible Unemployment</p>
+                <p style="font-size: 0.9rem; color: #aaa;">AI filters reject 75% of applicants before a human ever sees
+                    the PDF.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 3: Why -->
+    <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+        <h2 style="margin-bottom: 2rem;">Why We Built This</h2>
+        <p style="font-size: 1.1rem; line-height: 1.8; color: #ddd; margin-bottom: 2rem;">
+            Because the "Resume Black Hole" is real, and it's getting deeper. We wanted to build a tool that gives you
+            the cheat codes—showing you exactly why you're being rejected so you can fix it.
+        </p>
+
+        <div class="glass-card"
+            style="display: inline-block; padding: 2rem; border-left: 4px solid #00ff88; margin-top: 1rem;">
+            <h3 style="margin: 0 0 1rem 0; color: #fff;">Our Philosophy</h3>
+            <p style="font-size: 1.25rem; font-style: italic; color: #00ff88; margin: 0;">
+                "A perfect resume never exists.<br>It just needs to be <strong
+                    style="text-decoration: underline;">readable</strong> by the machines that judge you."
+            </p>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

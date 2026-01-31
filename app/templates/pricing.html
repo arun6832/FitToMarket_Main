@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}Pricing - FitToMarket{% endblock %}
+
+{% block content %}
+<div
+    style="min-height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+
+    <div class="glass-card" style="padding: 4rem; max-width: 600px; position: relative; overflow: hidden;">
+        <!-- Decorative element -->
+        <div
+            style="position: absolute; top: -50px; left: -50px; width: 150px; height: 150px; background: var(--primary-color); filter: blur(80px); opacity: 0.2; border-radius: 50%;">
+        </div>
+
+        <h1 style="font-size: 4rem; margin-bottom: 0.5rem; text-decoration: line-through; color: #666;">$19.99/mo</h1>
+
+        <h2
+            style="font-size: 3.5rem; color: #00ff88; margin-top: 0; margin-bottom: 2rem; text-shadow: 0 0 20px rgba(0,255,136,0.3);">
+            FREE
+        </h2>
+
+        <p style="font-size: 1.5rem; line-height: 1.6; color: #ddd;">
+            Free until you pass the interview by
+            <span style="color: var(--secondary-color); font-weight: bold;">Feb 28th</span>
+        </p>
+
+        <div style="margin-top: 3rem;">
+            <a href="{{ url_for('main.index') }}" style="background: linear-gradient(45deg, var(--primary-color), var(--secondary-color)); 
+                      color: #000; padding: 15px 30px; border-radius: 50px; font-weight: bold; text-decoration: none; 
+                      box-shadow: 0 10px 20px rgba(255, 51, 102, 0.3); transition: transform 0.2s;">
+                Use it while it's free
+            </a>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
